@@ -3,22 +3,39 @@
 //https://blog.nextzy.me/blockchain-ep-3-digital-wallet-927aaacc02e8
 const crypto = require('crypto')
 const path = require('path')
-const FileSystem = require('fs')
+const fs = require('fs')
 
-function a(data) {
-    try {
-        var cipher = crypto.createCipher('aes-256-cbc', '123456');
-        var encrypted = Buffer.concat([cipher.update(new Buffer(JSON.stringify(data), "utf8")), cipher.final()]);
-        FileSystem.writeFileSync(`key/public.pem`, encrypted);
-        return { message: "Encrypted!" };
-    } catch (exception) {
-        throw new Error(exception.message);
-    }
-}
+var keypair = require('keypair');
+var forge = require('node-forge');
+var test = require('tape');
+var pem = require('pem');
+var https = require('https');
 
-const enc = a('morakot');
-console.log('enc', enc);
+test('keypair', function (t) {
+  var pair = keypair();
+  t.ok(pair.private, 'private key');
+  t.assert(/BEGIN RSA PRIVATE KEY/.test(pair.private), 'private header');
+  t.ok(pair.public, 'public key');
+  t.assert(/BEGIN RSA PUBLIC KEY/.test(pair.public), 'public header');
+  t.end();
 
+  console.log(pair.public);
+
+  let filePublic = "key/public.pem";
+  let filePrivate = "key/private.pem";
+  fs.writeFile(filePublic, pair.public, (err) => {
+    if (err) throw err;
+
+    console.log("The file was succesfully saved! public key pem");
+  });
+  fs.writeFile(filePrivate, pair.private, (err) => {
+    if (err) throw err;
+
+    console.log("The file was succesfully saved! Private key pem");
+  });
+});
+
+ 
 /*function encrypt(toEncrypt, relativeOrAbsolutePathToPublicKey) {
   const absolutePath = path.resolve(relativeOrAbsolutePathToPublicKey)
   const publicKey = fs.readFileSync(absolutePath, 'utf8')
