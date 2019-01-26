@@ -1,9 +1,11 @@
 //https://medium.com/@thanahongsuwan/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A3%E0%B8%AB%E0%B8%B1%E0%B8%AA%E0%B9%81%E0%B8%9A%E0%B8%9A-public-key-e087bb1efa21
 //https://srakrn.me/blog/public-private-key-for-dummies/
 //https://blog.nextzy.me/blockchain-ep-3-digital-wallet-927aaacc02e8
-const crypto = require('crypto')
-const path = require('path')
+const crypto = require('crypto');
+const path = require('path');
 const fs = require('fs')
+
+const sign = crypto.createSign('RSA-SHA256');
 
 var keypair = require('keypair');
 var forge = require('node-forge');
@@ -20,6 +22,8 @@ test('keypair', function (t) {
   t.end();
 
   console.log(pair.public);
+
+  console.log(pair.private);
 
   let filePublic = "key/public.pem";
   let filePrivate = "key/private.pem";

@@ -22,7 +22,7 @@ let allowCrossDomain = function (req, res, next) {
 };
 
 // routes
-app.use('/api', require('./backend/routes/aes_256.routes'));
+app.use('/api', require('./aws_kms/router'));
 
 //error hadler
 app.use(function (err, req, res, next) {
