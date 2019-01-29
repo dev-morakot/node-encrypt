@@ -10,8 +10,8 @@ AWS.config.update({region: 'ap-southeast-1'});
 const kms = new AWS.KMS();
 
 const creds = new AWS.Credentials({
-  accessKeyId: 'AKIAJ6J4TWEDFQZQ7IIA', 
-  secretAccessKey: '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', 
+  accessKeyId: 'AKIAIU5XNGPHW2BXZSHA', 
+  secretAccessKey: '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', 
   sessionToken: 'session'
 });
 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
