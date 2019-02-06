@@ -9,14 +9,14 @@ AWS.config.update({region: 'ap-southeast-1'});
 
 const kms = new AWS.KMS();
 
-const creds = new AWS.Credentials({
+/*const creds = new AWS.Credentials({
   accessKeyId: 'AKIAIU5XNGPHW2BXZSHA', 
   secretAccessKey: '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', 
   sessionToken: 'session'
 });
 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
   IdentityPoolId: 'ap-southeast-1:305aa34e-3377-488b-a3db-1c5b9ef3e05b',
-});
+});*/
 
 // เข้าด้วย คี หนึง ถอดด้วย คี สอง
 // หรือ คีหนึงต้องถอดด้วย คีหนึง
@@ -55,19 +55,6 @@ AesCtrl.KmsKeys = async (req, res) => {
         decrypt: decrypted
       }
     });
-
-    console.log('result', {
-      result: {
-        keyAll: allKeys,
-        key0: assetKey,
-        key1: assetKey1,
-        key2: assetKey2,
-        encrypt: encrypted, 
-        decrypt: decrypted
-      }
-    });
-    
-    
   });
   
 }
